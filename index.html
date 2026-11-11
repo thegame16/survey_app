@@ -215,10 +215,18 @@ wheel("wB", Array.from({ length: 10 }, (_, i) => String(i)), "b");
 let mode = "in", token = sessionStorage.getItem("sd4_token"), me = sessionStorage.getItem("sd4_idx");
 
 async function api(action, payload = {}) {
-  if (API_URL.startsWith("PASTE")) throw new Error("API_URL not set in index.html yet");
-  // text/plain body avoids CORS preflight, which Apps Script cannot answer
-  const r = await fetch(API_URL, { method: "POST", body: JSON.stringify({ action, token, ...payload }) });
-  const j = await r.json();
+  if (API_URL.startsWith("PASTE")) throw new Error("API_URL is not set in index.html yet");
+  if (!/^https:\/\/script\.google\.com\/.+\/exec$/.test(API_URL)) throw new Error("API_URL must be the Web App link ending in /exec");
+  let r;
+  try {
+    // text/plain body avoids CORS preflight, which Apps Script cannot answer
+    r = await fetch(API_URL, { method: "POST", body: JSON.stringify({ action, token, ...payload }) });
+  } catch (e) {
+    throw new Error("Cannot reach the server. Check the Apps Script deployment: access must be 'Anyone' and the link must end in /exec.");
+  }
+  let j;
+  try { j = await r.json(); }
+  catch (e) { throw new Error("Server sent an unexpected reply. Redeploy the Apps Script as a new version with access set to 'Anyone'."); }
   if (!j.ok) throw new Error(j.error || "Request failed");
   return j;
 }
