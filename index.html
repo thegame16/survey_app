@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UMaT Student Life Survey | SD4</title>
+<style>
+:root{--bg:#0d1b2a;--card:#14263a;--ink:#eef2f6;--mute:#9fb0c3;--gold:#f2b632;--line:#243b55;--bad:#ff7b7b;color-scheme:dark}
+@media(prefers-color-scheme:light){:root{--bg:#eef2f6;--card:#fff;--ink:#12202f;--mute:#53667a;--gold:#b57900;--line:#d3dce6;--bad:#c62828;color-scheme:light}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+main{flex:1;width:100%;max-width:880px;margin:0 auto;padding:24px 16px 32px}
+footer{text-align:center;padding:14px;font-size:.8rem;letter-spacing:.14em;color:var(--mute);border-top:1px solid var(--line)}
+h1,h2{margin:0 0 .4em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px}
+label{display:block;font-size:.85rem;color:var(--mute);margin:14px 0 4px}
+input,select{width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1rem}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px 18px;font-size:1rem;font-weight:600;background:var(--gold);color:#1b1500}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button:disabled{opacity:.6;cursor:wait}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.msg{margin-top:12px;min-height:1.2em;font-size:.9rem;color:var(--bad)}.msg.ok{color:#4cc38a}
+.tabs{display:flex;gap:8px;margin-bottom:6px}.tabs button{flex:1}
+nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.12em;color:var(--gold)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.kpi b{display:block;font-size:1.7rem;color:var(--gold)}.kpi span{font-size:.8rem;color:var(--mute)}
+.bar{display:grid;grid-template-columns:minmax(110px,38%) 1fr 34px;gap:8px;align-items:center;font-size:.85rem;margin:6px 0}
+.bar i{display:block;height:12px;border-radius:6px;background:var(--gold);min-width:3px}
+.hide{display:none!important}
+#splash{position:fixed;inset:0;z-index:9;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .5s}
+#splash h1{font-size:clamp(2.2rem,9vw,4.5rem);letter-spacing:.2em;color:var(--gold);margin:0}
+#splash p{color:var(--mute);margin:8px 0 28px}
+.load{width:min(280px,70vw);height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.load i{display:block;height:100%;width:0;background:var(--gold);animation:ld 2.2s ease forwards}
+@keyframes ld{to{width:100%}}
+@media(prefers-reduced-motion:reduce){.load i{animation-duration:.01s}}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <h1>BUILT BY SD4</h1>
+  <p>UMaT Student Life Survey</p>
+  <div class="load"><i></i></div>
+  <footer style="position:absolute;bottom:0;left:0;right:0;border:0">SD 475 CLASS PROJECT</footer>
+</div>
+
+<main>
+  <!-- AUTH -->
+  <section id="auth" class="hide">
+    <div class="card" style="max-width:440px;margin:40px auto">
+      <h1>UMaT Student Survey</h1>
+      <p style="color:var(--mute);margin:0">Sign in with your index number to take part.</p>
+      <div class="tabs" style="margin-top:16px">
+        <button id="tabIn">Sign in</button><button id="tabUp" class="ghost">Sign up</button>
+      </div>
+      <form id="authForm" autocomplete="on">
+        <label for="idx">Index number (your username)</label>
+        <input id="idx" autocomplete="username" required>
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" minlength="6" required>
+        <div id="pw2wrap" class="hide">
+          <label for="pw2">Confirm password</label>
+          <input id="pw2" type="password" autocomplete="new-password">
+        </div>
+        <div style="margin-top:18px"><button id="authBtn" type="submit">Sign in</button></div>
+        <div id="authMsg" class="msg" role="alert"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section id="app" class="hide">
+    <nav>
+      <span class="brand">SD4 SURVEY</span>
+      <div class="row">
+        <span id="who" style="color:var(--mute);font-size:.9rem"></span>
+        <button id="navSurvey" class="ghost">Survey</button>
+        <button id="navDash" class="ghost">Dashboard</button>
+        <button id="out" class="ghost">Sign out</button>
+      </div>
+    </nav>
+
+    <div id="survey">
+      <div class="card">
+        <h2>Your survey</h2>
+        <p id="note" style="color:var(--mute);margin:0">Answer honestly. One response per student; resubmitting updates your answers.</p>
+        <form id="sForm">
+          <label for="gender">Gender</label>
+          <select id="gender" required><option value="">Select…</option><option>Male</option><option>Female</option></select>
+          <label for="level">Level</label>
+          <select id="level" required><option value="">Select…</option><option>100</option><option>200</option><option>300</option><option>400</option><option>Other</option></select>
+          <label for="prog">Programme of study</label>
+          <select id="prog" required><option value="">Select…</option></select>
+          <label for="spend">Amount spent on campus daily (GH₵)</label>
+          <input id="spend" type="number" min="0" max="5000" step="0.5" inputmode="decimal" required>
+          <label for="teach">Number of teaching hours in a day</label>
+          <input id="teach" type="number" min="0" max="24" step="0.5" inputmode="decimal" required>
+          <label for="phone">Hours spent on your phone per week</label>
+          <input id="phone" type="number" min="0" max="168" step="0.5" inputmode="decimal" required>
+          <div style="margin-top:18px"><button id="sBtn" type="submit">Submit survey</button></div>
+          <div id="sMsg" class="msg" role="alert"></div>
+        </form>
+      </div>
+    </div>
+
+    <div id="dash" class="hide">
+      <div class="kpis" id="kpis"></div>
+      <div class="card" style="margin-top:16px"><h2>Gender</h2><div id="cGender"></div></div>
+      <div class="card"><h2>Level</h2><div id="cLevel"></div></div>
+      <div class="card"><h2>Programme of study</h2><div id="cProg"></div></div>
+      <div class="card"><h2>Your submission</h2><div id="mine" style="color:var(--mute)"></div></div>
+    </div>
+  </section>
+</main>
+<footer>SD 475 CLASS PROJECT</footer>
+
+<script>
+// 1) Paste your deployed Google Apps Script Web App URL here (see README):
+const API_URL = "https://script.google.com/macros/s/AKfycbx8dE8X0KbXf_FBm4--bepeYpMdG9jmNylkWRgygqBtFjAYqmMCfJgUnPQ22kKPsdHK/exec";
+
+// Programmes sourced from UMaT admissions pages and TopUniversities; verify against umat.edu.gh before final use.
+const PROGRAMMES = [
+ "BSc Chemical Engineering","BSc Civil Engineering","BSc Computer Science and Engineering",
+ "BSc Data Science and Artificial Intelligence","BSc Electrical and Electronic Engineering",
+ "BSc Environmental and Safety Engineering","BSc Geological Engineering","BSc Geomatic Engineering",
+ "BSc Mathematics","BSc Mechanical Engineering","BSc Minerals Engineering","BSc Mining Engineering",
+ "BSc Natural Gas Engineering","BSc Petroleum Engineering","BSc Petroleum Geosciences and Engineering",
+ "BSc Petroleum Refining and Engineering","Diploma in General Drilling","Other"
+];
+
+const $ = id => document.getElementById(id);
+let mode = "in", token = sessionStorage.getItem("sd4_token"), me = sessionStorage.getItem("sd4_idx");
+
+async function api(action, payload = {}) {
+  if (API_URL.startsWith("PASTE")) throw new Error("API_URL not set in index.html yet");
+  // text/plain body avoids CORS preflight, which Apps Script cannot answer
+  const r = await fetch(API_URL, { method: "POST", body: JSON.stringify({ action, token, ...payload }) });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || "Request failed");
+  return j;
+}
+const say = (el, t, ok) => { el.textContent = t; el.className = "msg" + (ok ? " ok" : ""); };
+
+// Splash then route
+PROGRAMMES.forEach(p => $("prog").add(new Option(p, p)));
+setTimeout(() => {
+  $("splash").style.opacity = 0;
+  setTimeout(() => $("splash").classList.add("hide"), 500);
+  token ? enterApp() : $("auth").classList.remove("hide");
+}, 2300);
+
+// Auth
+function setMode(m) {
+  mode = m;
+  $("tabIn").className = m === "in" ? "" : "ghost"; $("tabUp").className = m === "up" ? "" : "ghost";
+  $("pw2wrap").classList.toggle("hide", m === "in");
+  $("authBtn").textContent = m === "in" ? "Sign in" : "Create account";
+  $("pw").autocomplete = m === "in" ? "current-password" : "new-password";
+  say($("authMsg"), "");
+}
+$("tabIn").onclick = () => setMode("in"); $("tabUp").onclick = () => setMode("up");
+$("authForm").onsubmit = async e => {
+  e.preventDefault();
+  if (mode === "up" && $("pw").value !== $("pw2").value) return say($("authMsg"), "Passwords do not match");
+  $("authBtn").disabled = true; say($("authMsg"), "Please wait…", true);
+  try {
+    const j = await api(mode === "in" ? "signin" : "signup", { index: $("idx").value, password: $("pw").value });
+    token = j.token; me = j.index;
+    sessionStorage.setItem("sd4_token", token); sessionStorage.setItem("sd4_idx", me);
+    $("auth").classList.add("hide"); enterApp(); say($("authMsg"), "");
+  } catch (err) { say($("authMsg"), err.message); }
+  $("authBtn").disabled = false;
+};
+function signOut() { sessionStorage.clear(); token = me = null; $("app").classList.add("hide"); $("auth").classList.remove("hide"); $("pw").value = ""; }
+$("out").onclick = signOut;
+
+// App
+function enterApp() { $("app").classList.remove("hide"); $("who").textContent = me; show("survey"); loadMine(); }
+function show(v) { $("survey").classList.toggle("hide", v !== "survey"); $("dash").classList.toggle("hide", v !== "dash"); if (v === "dash") loadDash(); }
+$("navSurvey").onclick = () => show("survey"); $("navDash").onclick = () => show("dash");
+
+async function loadMine() {
+  try {
+    const j = await api("dashboard");
+    if (j.mine) {
+      $("gender").value = j.mine.gender; $("level").value = j.mine.level; $("prog").value = j.mine.programme;
+      $("spend").value = j.mine.spend; $("teach").value = j.mine.teaching; $("phone").value = j.mine.phone;
+      $("note").textContent = "You have already responded. You can edit and resubmit to update your answers.";
+    }
+  } catch (err) { if (/sign in/i.test(err.message)) signOut(); }
+}
+$("sForm").onsubmit = async e => {
+  e.preventDefault(); $("sBtn").disabled = true; say($("sMsg"), "Submitting…", true);
+  try {
+    const j = await api("submit", { data: { gender: $("gender").value, level: $("level").value, programme: $("prog").value,
+      spend: $("spend").value, teaching: $("teach").value, phone: $("phone").value } });
+    say($("sMsg"), j.updated ? "Your response was updated. Thank you!" : "Submitted. Thank you!", true);
+  } catch (err) { say($("sMsg"), err.message); if (/sign in/i.test(err.message)) signOut(); }
+  $("sBtn").disabled = false;
+};
+
+function bars(el, obj) {
+  const e = Object.entries(obj).sort((a, b) => b[1] - a[1]), max = Math.max(1, ...e.map(x => x[1]));
+  el.innerHTML = e.length ? "" : "<span style='color:var(--mute)'>No data yet</span>";
+  e.forEach(([k, n]) => {
+    const d = document.createElement("div"); d.className = "bar";
+    d.innerHTML = "<span></span><div><i style='width:" + (n / max * 100) + "%'></i></div><b>" + n + "</b>";
+    d.firstChild.textContent = k; el.appendChild(d);
+  });
+}
+async function loadDash() {
+  try {
+    const j = await api("dashboard");
+    $("kpis").innerHTML = [["Responses", j.total], ["Avg daily spend (GH₵)", j.avgSpend], ["Avg teaching hrs/day", j.avgTeaching], ["Avg phone hrs/week", j.avgPhone]]
+      .map(([l, v]) => "<div class='kpi'><b>" + v + "</b><span>" + l + "</span></div>").join("");
+    bars($("cGender"), j.gender); bars($("cLevel"), j.level); bars($("cProg"), j.programme);
+    $("mine").textContent = j.mine ? `${j.mine.gender}, Level ${j.mine.level}, ${j.mine.programme}. Spend GH₵${j.mine.spend}/day, ${j.mine.teaching} teaching hrs/day, ${j.mine.phone} phone hrs/week.` : "You have not submitted yet.";
+  } catch (err) { $("kpis").textContent = err.message; if (/sign in/i.test(err.message)) signOut(); }
+}
+</script>
+</body>
+</html>
