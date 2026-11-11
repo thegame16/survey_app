@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="theme-color" content="#07140d">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>UMaT Student Life Survey | SD4</title>
+<link rel="icon" href="assets/umat-logo.jpg">
 <style>
-:root{--bg:#0d1b2a;--card:#14263a;--ink:#eef2f6;--mute:#9fb0c3;--gold:#f2b632;--line:#243b55;--bad:#ff7b7b;color-scheme:dark}
-@media(prefers-color-scheme:light){:root{--bg:#eef2f6;--card:#fff;--ink:#12202f;--mute:#53667a;--gold:#b57900;--line:#d3dce6;--bad:#c62828;color-scheme:light}}
+:root{--bg:#07140d;--card:#0e2418;--ink:#eef6f0;--mute:#9bb5a5;--gold:#f2c14e;--green:#15803d;--ok:#4cc38a;--line:#1f3d2c;--bad:#ff7b7b;color-scheme:dark}
+@media(prefers-color-scheme:light){:root{--bg:#f1f6f2;--card:#fff;--ink:#0f2a1b;--mute:#4a6355;--gold:#946800;--green:#0e6b34;--ok:#0e6b34;--line:#cfe0d5;--bad:#c62828;color-scheme:light}}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
@@ -16,11 +18,11 @@ h1,h2{margin:0 0 .4em}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px}
 label{display:block;font-size:.85rem;color:var(--mute);margin:14px 0 4px}
 input,select{width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1rem}
-button{cursor:pointer;border:0;border-radius:9px;padding:12px 18px;font-size:1rem;font-weight:600;background:var(--gold);color:#1b1500}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px 18px;font-size:1rem;font-weight:600;background:var(--green);color:#fff}
 button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 button:disabled{opacity:.6;cursor:wait}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.msg{margin-top:12px;min-height:1.2em;font-size:.9rem;color:var(--bad)}.msg.ok{color:#4cc38a}
+.msg{margin-top:12px;min-height:1.2em;font-size:.9rem;color:var(--bad)}.msg.ok{color:var(--ok)}
 .tabs{display:flex;gap:8px;margin-bottom:6px}.tabs button{flex:1}
 nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px;flex-wrap:wrap}
 .brand{font-weight:800;letter-spacing:.12em;color:var(--gold)}
@@ -28,7 +30,7 @@ nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
 .kpi b{display:block;font-size:1.7rem;color:var(--gold)}.kpi span{font-size:.8rem;color:var(--mute)}
 .bar{display:grid;grid-template-columns:minmax(110px,38%) 1fr 34px;gap:8px;align-items:center;font-size:.85rem;margin:6px 0}
-.bar i{display:block;height:12px;border-radius:6px;background:var(--gold);min-width:3px}
+.bar i{display:block;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--gold));min-width:3px}
 select{appearance:none;-webkit-appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239fb0c3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
 input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px}
 .idxpick{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px 10px}
@@ -51,11 +53,11 @@ input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px}
 .wheel li.on{color:var(--ink);transform:scale(1.18)}
 @media(prefers-reduced-motion:reduce){.wheel li{transition:none}}
 .hide{display:none!important}
-#splash{position:fixed;inset:0;z-index:9;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .5s}
+#splash{position:fixed;inset:0;z-index:9;background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--green) 30%,var(--bg)),var(--bg) 72%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .5s}
 #splash h1{font-size:clamp(2.2rem,9vw,4.5rem);letter-spacing:.2em;color:var(--gold);margin:0}
 #splash p{color:var(--mute);margin:8px 0 28px}
 .load{width:min(280px,70vw);height:6px;border-radius:3px;background:var(--line);overflow:hidden}
-.load i{display:block;height:100%;width:0;background:var(--gold);animation:ld 2.2s ease forwards}
+.load i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));animation:ld 2.2s ease forwards}
 @keyframes ld{to{width:100%}}
 @media(prefers-reduced-motion:reduce){.load i{animation-duration:.01s}}
 
@@ -64,7 +66,7 @@ button{min-height:44px}
 .fgrid{display:grid;grid-template-columns:1fr;gap:0 16px}
 .dgrid{display:grid;grid-template-columns:1fr;gap:0 16px}
 @media(min-width:680px){.fgrid{grid-template-columns:1fr 1fr}.fgrid .full{grid-column:1/-1}.dgrid{grid-template-columns:1fr 1fr}main{padding:36px 24px 44px}.card{padding:28px}.wcol{width:72px}.wcol.w-p{width:88px}}
-@media(min-width:1000px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.tscroll{overflow-x:auto}.tscroll table{width:100%;border-collapse:collapse;font-size:.85rem}.tscroll th,.tscroll td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}.tscroll th{color:var(--mute);font-weight:600}
 @media(max-width:560px){
  main{padding:14px 12px 24px}.card{padding:16px}.idxpick{padding:10px 8px 8px}
  nav{flex-direction:column;align-items:stretch;text-align:center}nav .row{justify-content:center}nav button{flex:1 1 30%;padding:10px}
@@ -74,11 +76,27 @@ button{min-height:44px}
  .bar{grid-template-columns:minmax(80px,36%) 1fr 28px;font-size:.8rem}
 }
 @media(max-width:400px){.wcol{width:52px}.wcol.w-p{width:62px}.fix{font-size:.78rem}.wheels{gap:3px}.ixprev{font-size:1rem}}
+
+#splash .crest{height:clamp(150px,30vw,190px);width:auto;margin:0 0 24px;border-radius:18px;padding:10px;animation:pop .8s cubic-bezier(.2,.8,.2,1) both}#splash h1{animation:pop .8s .15s both}#splash p{animation:pop .8s .3s both}#splash .load{animation:pop .8s .45s both}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+.crest{display:block;background:#fff;border-radius:12px;padding:5px;object-fit:contain;box-shadow:0 8px 26px rgba(0,0,0,.28),0 0 0 1px color-mix(in srgb,var(--gold) 45%,transparent)}
+.crest.md{height:92px;width:auto;margin:0 auto 12px;padding:6px}
+.brand{display:flex;align-items:center;gap:10px}.brand .crest{height:38px;width:auto;padding:3px;border-radius:8px;box-shadow:none}
+.ctr{text-align:center}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:4px;z-index:10;background:linear-gradient(90deg,var(--green),var(--gold) 55%,#c8102e)}
+.dangerzone{border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.dangerzone h2{color:var(--bad)}
+.dangerbtn{color:var(--bad);border-color:var(--bad)}
+.solid-danger{background:#c62828;color:#fff}
+dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:22px;width:min(420px,calc(100% - 32px))}
+dialog::backdrop{background:rgba(0,0,0,.62)}
+@media(prefers-reduced-motion:reduce){#splash .crest,#splash h1,#splash p,#splash .load{animation:none}}
 </style>
 </head>
 <body>
 
 <div id="splash">
+  <img class="crest" src="umat-logo.jpg" width="149" height="190" alt="University of Mines and Technology crest: Knowledge, Truth and Excellence">
   <h1>BUILT BY SD4</h1>
   <p>UMaT Student Life Survey</p>
   <div class="load"><i></i></div>
@@ -89,8 +107,9 @@ button{min-height:44px}
   <!-- AUTH -->
   <section id="auth" class="hide">
     <div class="card" style="max-width:440px;margin:40px auto">
-      <h1>UMaT Student Survey</h1>
-      <p style="color:var(--mute);margin:0">Sign in with your index number to take part.</p>
+      <img class="crest md" src="assets/umat-logo.jpg" width="72" height="92" alt="UMaT crest">
+      <h1 class="ctr">UMaT Student Survey</h1>
+      <p class="ctr" style="color:var(--mute);margin:0">Sign in with your index number to take part.</p>
       <div class="tabs" style="margin-top:16px">
         <button id="tabIn">Sign in</button><button id="tabUp" class="ghost">Sign up</button>
       </div>
@@ -122,7 +141,7 @@ button{min-height:44px}
   <!-- APP -->
   <section id="app" class="hide">
     <nav>
-      <span class="brand">SD4 SURVEY</span>
+      <span class="brand"><img class="crest" src="assets/umat-logo.jpg" width="30" height="38" alt="">SD4 SURVEY</span>
       <div class="row">
         <span id="who" style="color:var(--mute);font-size:.9rem"></span>
         <button id="navSurvey" class="ghost">Survey</button>
@@ -133,8 +152,9 @@ button{min-height:44px}
 
     <div id="survey">
       <div class="card">
-        <h2>Your survey</h2>
-        <p id="note" style="color:var(--mute);margin:0">Answer honestly. One response per student; resubmitting updates your answers.</p>
+        <h2>New survey response</h2>
+        <p id="note" style="color:var(--mute);margin:0">Enter the answers given by the respondent. Each submission adds one new row to the shared Google Sheet.</p>
+        <p id="count" style="color:var(--gold);font-weight:600;margin:8px 0 0"></p>
         <form id="sForm" class="fgrid">
           <div><label for="gender">Gender</label>
           <select id="gender" required><option value="">Select…</option><option>Male</option><option>Female</option></select></div>
@@ -148,7 +168,7 @@ button{min-height:44px}
           <input id="teach" type="number" min="0" max="24" step="0.5" inputmode="decimal" required></div>
           <div><label for="phone">Phone hours per week</label>
           <input id="phone" type="number" min="0" max="168" step="0.5" inputmode="decimal" required></div>
-          <div class="full" style="margin-top:18px"><button id="sBtn" type="submit" style="width:100%;max-width:260px">Submit survey</button>
+          <div class="full" style="margin-top:18px"><div class="row"><button id="sBtn" type="submit" style="flex:1 1 200px;max-width:260px">Submit survey</button><button id="sClear" type="button" class="ghost">Clear form</button></div>
           <div id="sMsg" class="msg" role="alert"></div></div>
         </form>
       </div>
@@ -161,10 +181,29 @@ button{min-height:44px}
         <div class="card"><h2>Level</h2><div id="cLevel"></div></div>
       </div>
       <div class="card"><h2>Programme of study</h2><div id="cProg"></div></div>
-      <div class="card"><h2>Your submission</h2><div id="mine" style="color:var(--mute)"></div></div>
+      <div class="card"><h2>Surveys you collected</h2><div id="mine" class="tscroll"></div></div>
+      <div class="card dangerzone">
+        <h2>Reset recorded data</h2>
+        <p style="color:var(--mute);margin:0 0 14px;font-size:.9rem">Sets every recorded survey, for all agents, back to zero. A backup copy is saved as a new tab in the Google Sheet first. Logins are not affected. Needs the admin PIN.</p>
+        <button id="rstOpen" type="button" class="ghost dangerbtn">Reset all data…</button>
+        <div id="rstDone" class="msg" role="status"></div>
+      </div>
     </div>
   </section>
 </main>
+<dialog id="rst" aria-labelledby="rstTitle">
+  <h2 id="rstTitle">Reset all recorded data?</h2>
+  <p style="color:var(--mute);margin:0;font-size:.9rem">This clears every survey submitted by every agent. A backup tab is created in the Google Sheet before clearing.</p>
+  <label for="rstPin">Admin PIN</label>
+  <input id="rstPin" type="password" autocomplete="off">
+  <label for="rstConfirm">Type RESET to confirm</label>
+  <input id="rstConfirm" autocomplete="off" autocapitalize="characters">
+  <div class="row" style="margin-top:18px;justify-content:flex-end">
+    <button id="rstCancel" type="button" class="ghost">Cancel</button>
+    <button id="rstGo" type="button" class="solid-danger" disabled>Reset data</button>
+  </div>
+  <div id="rstMsg" class="msg" role="alert"></div>
+</dialog>
 <footer>SD 475 CLASS PROJECT</footer>
 
 <script>
@@ -268,28 +307,40 @@ function signOut() { sessionStorage.clear(); token = me = null; $("app").classLi
 $("out").onclick = signOut;
 
 // App
-function enterApp() { $("app").classList.remove("hide"); $("who").textContent = me; show("survey"); loadMine(); }
+function enterApp() { $("app").classList.remove("hide"); $("who").textContent = me; show("survey"); loadCount(); }
 function show(v) { $("survey").classList.toggle("hide", v !== "survey"); $("dash").classList.toggle("hide", v !== "dash"); if (v === "dash") loadDash(); }
 $("navSurvey").onclick = () => show("survey"); $("navDash").onclick = () => show("dash");
 
-async function loadMine() {
-  try {
-    const j = await api("dashboard");
-    if (j.mine) {
-      $("gender").value = j.mine.gender; $("level").value = j.mine.level; $("prog").value = j.mine.programme;
-      $("spend").value = j.mine.spend; $("teach").value = j.mine.teaching; $("phone").value = j.mine.phone;
-      $("note").textContent = "You have already responded. You can edit and resubmit to update your answers.";
-    }
-  } catch (err) { if (/sign in/i.test(err.message)) signOut(); }
+async function loadCount() {
+  try { const j = await api("dashboard"); $("count").textContent = "Surveys you have submitted: " + j.myCount; }
+  catch (err) { if (/sign in/i.test(err.message)) signOut(); }
 }
 $("sForm").onsubmit = async e => {
   e.preventDefault(); $("sBtn").disabled = true; say($("sMsg"), "Submitting…", true);
   try {
     const j = await api("submit", { data: { gender: $("gender").value, level: $("level").value, programme: $("prog").value,
       spend: $("spend").value, teaching: $("teach").value, phone: $("phone").value } });
-    say($("sMsg"), j.updated ? "Your response was updated. Thank you!" : "Submitted. Thank you!", true);
+    $("sForm").reset(); $("count").textContent = "Surveys you have submitted: " + j.myCount;
+    say($("sMsg"), "Saved as survey #" + j.myCount + ". The form is cleared for the next respondent.", true);
   } catch (err) { say($("sMsg"), err.message); if (/sign in/i.test(err.message)) signOut(); }
   $("sBtn").disabled = false;
+};
+
+$("sClear").onclick = () => { $("sForm").reset(); say($("sMsg"), ""); };
+
+const dlg = $("rst"), rp = $("rstPin"), rc = $("rstConfirm"), rb = $("rstGo");
+const rchk = () => { rb.disabled = !(rp.value && rc.value.trim().toUpperCase() === "RESET"); };
+$("rstOpen").onclick = () => { rp.value = rc.value = ""; rb.disabled = true; say($("rstMsg"), ""); dlg.showModal(); rp.focus(); };
+$("rstCancel").onclick = () => dlg.close();
+rp.oninput = rc.oninput = rchk;
+rb.onclick = async () => {
+  rb.disabled = true; say($("rstMsg"), "Resetting…", true);
+  try {
+    await api("reset", { pin: rp.value });
+    dlg.close(); $("count").textContent = "Surveys you have submitted: 0";
+    say($("rstDone"), "All recorded data was reset to zero. A backup tab was saved in the Google Sheet.", true);
+    loadDash();
+  } catch (err) { say($("rstMsg"), err.message); rchk(); }
 };
 
 function bars(el, obj) {
@@ -301,13 +352,28 @@ function bars(el, obj) {
     d.firstChild.textContent = k; el.appendChild(d);
   });
 }
+function table(el, rows, total) {
+  el.innerHTML = "";
+  if (!rows.length) { el.textContent = "You have not submitted any surveys yet."; return; }
+  const t = document.createElement("table");
+  t.innerHTML = "<thead><tr><th>#</th><th>Time</th><th>Gender</th><th>Level</th><th>Programme</th><th>GH₵/day</th><th>Teach hrs</th><th>Phone hrs/wk</th></tr></thead>";
+  const tb = document.createElement("tbody");
+  rows.forEach((r, i) => {
+    const tr = document.createElement("tr");
+    [total - i, new Date(r.time).toLocaleString(), r.gender, r.level, r.programme, r.spend, r.teaching, r.phone].forEach(v => {
+      const td = document.createElement("td"); td.textContent = v; tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb); el.appendChild(t);
+}
 async function loadDash() {
   try {
     const j = await api("dashboard");
-    $("kpis").innerHTML = [["Responses", j.total], ["Avg daily spend (GH₵)", j.avgSpend], ["Avg teaching hrs/day", j.avgTeaching], ["Avg phone hrs/week", j.avgPhone]]
+    $("kpis").innerHTML = [["Total responses", j.total], ["Submitted by you", j.myCount], ["Avg daily spend (GH₵)", j.avgSpend], ["Avg teaching hrs/day", j.avgTeaching], ["Avg phone hrs/week", j.avgPhone]]
       .map(([l, v]) => "<div class='kpi'><b>" + v + "</b><span>" + l + "</span></div>").join("");
     bars($("cGender"), j.gender); bars($("cLevel"), j.level); bars($("cProg"), j.programme);
-    $("mine").textContent = j.mine ? `${j.mine.gender}, Level ${j.mine.level}, ${j.mine.programme}. Spend GH₵${j.mine.spend}/day, ${j.mine.teaching} teaching hrs/day, ${j.mine.phone} phone hrs/week.` : "You have not submitted yet.";
+    table($("mine"), j.recent, j.myCount);
   } catch (err) { $("kpis").textContent = err.message; if (/sign in/i.test(err.message)) signOut(); }
 }
 </script>
