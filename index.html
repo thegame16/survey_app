@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>UMaT Student Life Survey | SD4</title>
 <style>
 :root{--bg:#0d1b2a;--card:#14263a;--ink:#eef2f6;--mute:#9fb0c3;--gold:#f2b632;--line:#243b55;--bad:#ff7b7b;color-scheme:dark}
 @media(prefers-color-scheme:light){:root{--bg:#eef2f6;--card:#fff;--ink:#12202f;--mute:#53667a;--gold:#b57900;--line:#d3dce6;--bad:#c62828;color-scheme:light}}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
 main{flex:1;width:100%;max-width:880px;margin:0 auto;padding:24px 16px 32px}
-footer{text-align:center;padding:14px;font-size:.8rem;letter-spacing:.14em;color:var(--mute);border-top:1px solid var(--line)}
+footer{text-align:center;padding:14px 14px calc(14px + env(safe-area-inset-bottom));font-size:.8rem;letter-spacing:.14em;color:var(--mute);border-top:1px solid var(--line)}
 h1,h2{margin:0 0 .4em}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px}
 label{display:block;font-size:.85rem;color:var(--mute);margin:14px 0 4px}
@@ -28,6 +29,27 @@ nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:
 .kpi b{display:block;font-size:1.7rem;color:var(--gold)}.kpi span{font-size:.8rem;color:var(--mute)}
 .bar{display:grid;grid-template-columns:minmax(110px,38%) 1fr 34px;gap:8px;align-items:center;font-size:.85rem;margin:6px 0}
 .bar i{display:block;height:12px;border-radius:6px;background:var(--gold);min-width:3px}
+select{appearance:none;-webkit-appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239fb0c3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px}
+.idxpick{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px 10px}
+.idxpick small{display:block;text-align:center;color:var(--mute);font-size:.76rem;margin-top:6px}
+.ixprev{text-align:center;font:700 1.15rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;color:var(--gold);margin-bottom:6px}
+.wheels{display:flex;justify-content:center;align-items:center;gap:6px}
+.fix{font:600 .95rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--mute)}
+.wcol{display:flex;flex-direction:column;align-items:center;width:64px}.wcol.w-p{width:78px}
+.wbox{position:relative;width:100%}
+.wbox::after{content:"";position:absolute;left:0;right:0;top:44px;height:44px;border-top:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);background:color-mix(in srgb,var(--gold) 9%,transparent);border-radius:8px;pointer-events:none}
+.step{min-height:0;display:none;width:100%;padding:3px 0;background:transparent;color:var(--mute);border-radius:6px;line-height:0}
+.step:hover{color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,transparent)}
+@media(hover:hover) and (pointer:fine){.step{display:block}}
+.wheel{height:132px;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+ -webkit-mask-image:linear-gradient(transparent,#000 32%,#000 68%,transparent);mask-image:linear-gradient(transparent,#000 32%,#000 68%,transparent);border-radius:8px}
+.wheel::-webkit-scrollbar{display:none}
+.wheel:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wheel ul{list-style:none;margin:0;padding:44px 0}
+.wheel li{height:44px;line-height:44px;text-align:center;scroll-snap-align:center;cursor:pointer;user-select:none;color:var(--mute);font:600 1rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;transition:color .15s,transform .15s}
+.wheel li.on{color:var(--ink);transform:scale(1.18)}
+@media(prefers-reduced-motion:reduce){.wheel li{transition:none}}
 .hide{display:none!important}
 #splash{position:fixed;inset:0;z-index:9;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .5s}
 #splash h1{font-size:clamp(2.2rem,9vw,4.5rem);letter-spacing:.2em;color:var(--gold);margin:0}
@@ -36,6 +58,22 @@ nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:
 .load i{display:block;height:100%;width:0;background:var(--gold);animation:ld 2.2s ease forwards}
 @keyframes ld{to{width:100%}}
 @media(prefers-reduced-motion:reduce){.load i{animation-duration:.01s}}
+
+button,.wheel li{touch-action:manipulation}
+button{min-height:44px}
+.fgrid{display:grid;grid-template-columns:1fr;gap:0 16px}
+.dgrid{display:grid;grid-template-columns:1fr;gap:0 16px}
+@media(min-width:680px){.fgrid{grid-template-columns:1fr 1fr}.fgrid .full{grid-column:1/-1}.dgrid{grid-template-columns:1fr 1fr}main{padding:36px 24px 44px}.card{padding:28px}.wcol{width:72px}.wcol.w-p{width:88px}}
+@media(min-width:1000px){.kpis{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){
+ main{padding:14px 12px 24px}.card{padding:16px}.idxpick{padding:10px 8px 8px}
+ nav{flex-direction:column;align-items:stretch;text-align:center}nav .row{justify-content:center}nav button{flex:1 1 30%;padding:10px}
+ #who{width:100%;text-align:center}
+ .tabs button{padding:10px}h1{font-size:1.5rem}
+ .kpi{padding:12px}.kpi b{font-size:1.35rem}
+ .bar{grid-template-columns:minmax(80px,36%) 1fr 28px;font-size:.8rem}
+}
+@media(max-width:400px){.wcol{width:52px}.wcol.w-p{width:62px}.fix{font-size:.78rem}.wheels{gap:3px}.ixprev{font-size:1rem}}
 </style>
 </head>
 <body>
@@ -57,8 +95,18 @@ nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:
         <button id="tabIn">Sign in</button><button id="tabUp" class="ghost">Sign up</button>
       </div>
       <form id="authForm" autocomplete="on">
-        <label for="idx">Index number (your username)</label>
-        <input id="idx" autocomplete="username" required>
+        <label id="ixLabel">Index number (your username)</label>
+        <div class="idxpick" role="group" aria-labelledby="ixLabel">
+          <div class="ixprev" id="ixPrev" aria-live="polite">___ 41.023.0__.2_</div>
+          <div class="wheels">
+            <div class="wcol w-p"><div class="wbox"><div class="wheel" id="wP" tabindex="0" role="listbox" aria-label="Prefix"><ul></ul></div></div></div>
+            <span class="fix">41.023.0</span>
+            <div class="wcol"><div class="wbox"><div class="wheel" id="wA" tabindex="0" role="listbox" aria-label="Two digits"><ul></ul></div></div></div>
+            <span class="fix">.2</span>
+            <div class="wcol"><div class="wbox"><div class="wheel" id="wB" tabindex="0" role="listbox" aria-label="Last digit"><ul></ul></div></div></div>
+          </div>
+          <small>Scroll, tap or use the arrow keys to choose each part of your index number.</small>
+        </div>
         <label for="pw">Password</label>
         <input id="pw" type="password" autocomplete="current-password" minlength="6" required>
         <div id="pw2wrap" class="hide">
@@ -87,29 +135,31 @@ nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:
       <div class="card">
         <h2>Your survey</h2>
         <p id="note" style="color:var(--mute);margin:0">Answer honestly. One response per student; resubmitting updates your answers.</p>
-        <form id="sForm">
-          <label for="gender">Gender</label>
-          <select id="gender" required><option value="">Select…</option><option>Male</option><option>Female</option></select>
-          <label for="level">Level</label>
-          <select id="level" required><option value="">Select…</option><option>100</option><option>200</option><option>300</option><option>400</option><option>Other</option></select>
-          <label for="prog">Programme of study</label>
-          <select id="prog" required><option value="">Select…</option></select>
-          <label for="spend">Amount spent on campus daily (GH₵)</label>
-          <input id="spend" type="number" min="0" max="5000" step="0.5" inputmode="decimal" required>
-          <label for="teach">Number of teaching hours in a day</label>
-          <input id="teach" type="number" min="0" max="24" step="0.5" inputmode="decimal" required>
-          <label for="phone">Hours spent on your phone per week</label>
-          <input id="phone" type="number" min="0" max="168" step="0.5" inputmode="decimal" required>
-          <div style="margin-top:18px"><button id="sBtn" type="submit">Submit survey</button></div>
-          <div id="sMsg" class="msg" role="alert"></div>
+        <form id="sForm" class="fgrid">
+          <div><label for="gender">Gender</label>
+          <select id="gender" required><option value="">Select…</option><option>Male</option><option>Female</option></select></div>
+          <div><label for="level">Level</label>
+          <select id="level" required><option value="">Select…</option><option>100</option><option>200</option><option>300</option><option>400</option><option>Other</option></select></div>
+          <div class="full"><label for="prog">Programme of study</label>
+          <select id="prog" required><option value="">Select…</option></select></div>
+          <div class="full"><label for="spend">Amount spent on campus daily (GH₵)</label>
+          <input id="spend" type="number" min="0" max="5000" step="0.5" inputmode="decimal" required></div>
+          <div><label for="teach">Teaching hours in a day</label>
+          <input id="teach" type="number" min="0" max="24" step="0.5" inputmode="decimal" required></div>
+          <div><label for="phone">Phone hours per week</label>
+          <input id="phone" type="number" min="0" max="168" step="0.5" inputmode="decimal" required></div>
+          <div class="full" style="margin-top:18px"><button id="sBtn" type="submit" style="width:100%;max-width:260px">Submit survey</button>
+          <div id="sMsg" class="msg" role="alert"></div></div>
         </form>
       </div>
     </div>
 
     <div id="dash" class="hide">
       <div class="kpis" id="kpis"></div>
-      <div class="card" style="margin-top:16px"><h2>Gender</h2><div id="cGender"></div></div>
-      <div class="card"><h2>Level</h2><div id="cLevel"></div></div>
+      <div class="dgrid" style="margin-top:16px">
+        <div class="card"><h2>Gender</h2><div id="cGender"></div></div>
+        <div class="card"><h2>Level</h2><div id="cLevel"></div></div>
+      </div>
       <div class="card"><h2>Programme of study</h2><div id="cProg"></div></div>
       <div class="card"><h2>Your submission</h2><div id="mine" style="color:var(--mute)"></div></div>
     </div>
@@ -132,6 +182,36 @@ const PROGRAMMES = [
 ];
 
 const $ = id => document.getElementById(id);
+const IDX_RE = /^(FOE|FCM) 41\.023\.0\d{2}\.2\d$/;
+const sel = { p: null, a: null, b: null };
+const getIdx = () => (sel.p && sel.a !== null && sel.b !== null) ? `${sel.p} 41.023.0${sel.a}.2${sel.b}` : "";
+function wheel(id, items, key) {
+  const el = $(id), ul = el.querySelector("ul"), col = el.closest(".wcol"), H = 44;
+  items.forEach(t => { const li = document.createElement("li"); li.textContent = t; li.setAttribute("role", "option"); ul.appendChild(li); });
+  const at = i => Math.max(0, Math.min(items.length - 1, i));
+  const choose = i => {
+    i = at(i); sel[key] = items[i];
+    [...ul.children].forEach((c, k) => c.classList.toggle("on", k === i));
+    $("ixPrev").textContent = (sel.p || "___") + " 41.023.0" + (sel.a ?? "__") + ".2" + (sel.b ?? "_");
+  };
+  const go = k => { choose(k); el.scrollTo({ top: at(k) * H, behavior: "smooth" }); };
+  const step = d => { const cur = sel[key] === null ? -1 : items.indexOf(sel[key]); go(d > 0 ? cur + 1 : (cur < 0 ? 0 : cur - 1)); };
+  const chev = d => '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"/></svg>';
+  [["up", "Previous", "M6 15l6-6 6 6", -1], ["down", "Next", "M6 9l6 6 6-6", 1]].forEach(([c, label, path, d]) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "step " + c; b.tabIndex = -1;
+    b.setAttribute("aria-label", label); b.innerHTML = chev(path); b.onclick = () => step(d);
+    c === "up" ? col.insertBefore(b, col.firstChild) : col.appendChild(b);
+  });
+  el.addEventListener("scroll", () => choose(Math.round(el.scrollTop / H)), { passive: true });
+  ul.addEventListener("click", e => { const k = [...ul.children].indexOf(e.target); if (k >= 0) go(k); });
+  el.addEventListener("keydown", e => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); step(e.key === "ArrowDown" ? 1 : -1); }
+  });
+  ul.children[0].classList.add("on");
+}
+wheel("wP", ["FOE", "FCM"], "p");
+wheel("wA", Array.from({ length: 100 }, (_, i) => String(i).padStart(2, "0")), "a");
+wheel("wB", Array.from({ length: 10 }, (_, i) => String(i)), "b");
 let mode = "in", token = sessionStorage.getItem("sd4_token"), me = sessionStorage.getItem("sd4_idx");
 
 async function api(action, payload = {}) {
@@ -164,10 +244,12 @@ function setMode(m) {
 $("tabIn").onclick = () => setMode("in"); $("tabUp").onclick = () => setMode("up");
 $("authForm").onsubmit = async e => {
   e.preventDefault();
+  const idx = getIdx();
+  if (!IDX_RE.test(idx)) return say($("authMsg"), "Choose every part of your index number (FOE or FCM, then 41.023.0__.2_)");
   if (mode === "up" && $("pw").value !== $("pw2").value) return say($("authMsg"), "Passwords do not match");
   $("authBtn").disabled = true; say($("authMsg"), "Please wait…", true);
   try {
-    const j = await api(mode === "in" ? "signin" : "signup", { index: $("idx").value, password: $("pw").value });
+    const j = await api(mode === "in" ? "signin" : "signup", { index: idx, password: $("pw").value });
     token = j.token; me = j.index;
     sessionStorage.setItem("sd4_token", token); sessionStorage.setItem("sd4_idx", me);
     $("auth").classList.add("hide"); enterApp(); say($("authMsg"), "");
