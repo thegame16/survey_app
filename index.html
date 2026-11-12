@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#07140d">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>UMaT Student Life Survey | SD4</title>
-<link rel="icon" href="umat-logo.jpg">
+<link rel="icon" href="assets/umat-logo.jpg">
 <style>
 :root{--bg:#07140d;--card:#0e2418;--ink:#eef6f0;--mute:#9bb5a5;--gold:#f2c14e;--green:#15803d;--ok:#4cc38a;--line:#1f3d2c;--bad:#ff7b7b;color-scheme:dark}
 @media(prefers-color-scheme:light){:root{--bg:#f1f6f2;--card:#fff;--ink:#0f2a1b;--mute:#4a6355;--gold:#946800;--green:#0e6b34;--ok:#0e6b34;--line:#cfe0d5;--bad:#c62828;color-scheme:light}}
@@ -60,7 +60,7 @@ input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px}
 .load i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));animation:ld 2.2s ease forwards}
 @keyframes ld{to{width:100%}}
 @media(prefers-reduced-motion:reduce){.load i{animation-duration:.01s}}
- 
+
 button,.wheel li{touch-action:manipulation}
 button{min-height:44px}
 .fgrid{display:grid;grid-template-columns:1fr;gap:0 16px}
@@ -76,7 +76,7 @@ button{min-height:44px}
  .bar{grid-template-columns:minmax(80px,36%) 1fr 28px;font-size:.8rem}
 }
 @media(max-width:400px){.wcol{width:52px}.wcol.w-p{width:62px}.fix{font-size:.78rem}.wheels{gap:3px}.ixprev{font-size:1rem}}
- 
+
 #splash .crest{height:clamp(150px,30vw,190px);width:auto;margin:0 0 24px;border-radius:18px;padding:10px;animation:pop .8s cubic-bezier(.2,.8,.2,1) both}#splash h1{animation:pop .8s .15s both}#splash p{animation:pop .8s .3s both}#splash .load{animation:pop .8s .45s both}
 @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
 .crest{display:block;background:#fff;border-radius:12px;padding:5px;object-fit:contain;box-shadow:0 8px 26px rgba(0,0,0,.28),0 0 0 1px color-mix(in srgb,var(--gold) 45%,transparent)}
@@ -97,27 +97,27 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
 </style>
 </head>
 <body>
- 
+
 <div id="splash">
-  <img class="crest" src="umat-logo.jpg" width="149" height="190" alt="University of Mines and Technology crest: Knowledge, Truth and Excellence">
+  <img class="crest" src="assets/umat-logo.jpg" width="149" height="190" alt="University of Mines and Technology crest: Knowledge, Truth and Excellence">
   <h1>BUILT BY SD4</h1>
   <p>UMaT Student Life Survey</p>
   <div class="load"><i></i></div>
   <footer style="position:absolute;bottom:0;left:0;right:0;border:0">SD 475 CLASS PROJECT</footer>
 </div>
- 
+
 <main>
   <!-- AUTH -->
   <section id="auth" class="hide">
     <div class="card" style="max-width:440px;margin:40px auto">
-      <img class="crest md" src="umat-logo.jpg" width="72" height="92" alt="UMaT crest">
+      <img class="crest md" src="assets/umat-logo.jpg" width="72" height="92" alt="UMaT crest">
       <h1 class="ctr">UMaT Student Survey</h1>
-      <p class="ctr" style="color:var(--mute);margin:0">Sign in with your index number to take part.</p>
+      <p class="ctr" style="color:var(--mute);margin:0">Sign in with your reference number to take part.</p>
       <div class="tabs" style="margin-top:16px">
         <button id="tabIn">Sign in</button><button id="tabUp" class="ghost">Sign up</button>
       </div>
       <form id="authForm" autocomplete="on">
-        <label id="ixLabel">Index number (your username)</label>
+        <label id="ixLabel">Reference number (your username)</label>
         <div class="idxpick" role="group" aria-labelledby="ixLabel">
           <div class="ixprev" id="ixPrev" aria-live="polite">___ 41.023.0__.2_</div>
           <div class="wheels">
@@ -127,7 +127,7 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
             <span class="fix">.2</span>
             <div class="wcol"><div class="wbox"><div class="wheel" id="wB" tabindex="0" role="listbox" aria-label="Last digit"><ul></ul></div></div></div>
           </div>
-          <small>Scroll, tap or use the arrow keys to choose each part of your index number.</small>
+          <small>Scroll, tap or use the arrow keys to choose each part of your reference number.</small>
         </div>
         <div id="codeWrap" class="hide">
           <label for="code">Reset code from your admin</label>
@@ -144,23 +144,23 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
         <div style="margin-top:6px"><button id="altLink" type="button" class="linkbtn">Forgot password?</button></div>
         <div id="authMsg" class="msg" role="alert"></div>
       </form>
+      <div class="ctr" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)"><button id="adminLink" type="button" class="linkbtn">Admin login</button></div>
     </div>
   </section>
- 
+
   <!-- APP -->
   <section id="app" class="hide">
     <nav>
-      <span class="brand"><img class="crest" src="umat-logo.jpg" width="30" height="38" alt="">SD4 SURVEY</span>
+      <span class="brand"><img class="crest" src="assets/umat-logo.jpg" width="30" height="38" alt="">SD4 SURVEY</span>
       <div class="row">
         <span id="who" style="color:var(--mute);font-size:.9rem"></span>
         <button id="navSurvey" class="ghost">Survey</button>
         <button id="navDash" class="ghost">Dashboard</button>
         <button id="navAcct" class="ghost">Account</button>
-        <button id="navAdmin" class="ghost">Admin</button>
         <button id="out" class="ghost">Sign out</button>
       </div>
     </nav>
- 
+
     <div id="survey">
       <div class="card">
         <h2>Share your survey link</h2>
@@ -195,7 +195,7 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
         </form>
       </div>
     </div>
- 
+
     <div id="acct" class="hide">
       <div class="card" style="max-width:480px">
         <h2>Change password</h2>
@@ -212,7 +212,7 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
         </form>
       </div>
     </div>
- 
+
     <div id="dash" class="hide">
       <div class="tabs" style="max-width:340px;margin-bottom:12px"><button id="scMine" type="button">My data</button><button id="scAll" type="button" class="ghost">Everyone</button></div>
       <div class="kpis" id="kpis"></div>
@@ -223,15 +223,24 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
       <div class="card"><h2>Programme of study</h2><div id="cProg"></div></div>
       <div class="card"><h2>Surveys you collected</h2><div id="mine" class="tscroll"></div></div>
     </div>
-    <div id="admin" class="hide">
+  </section>
+
+  <!-- ADMIN (opened from "Admin login" on the sign-in page) -->
+  <section id="adminApp" class="hide">
+    <nav>
+      <span class="brand">SD4 SURVEY · ADMIN</span>
+      <div class="row"><button id="adOut" type="button" class="ghost">Sign out</button></div>
+    </nav>
+    <div id="admin">
       <div id="adLock" class="card" style="max-width:480px">
-        <h2>Admin access</h2>
+        <h2>Admin login</h2>
         <p style="color:var(--mute);margin:0;font-size:.9rem">Enter the admin PIN to see registered users, incoming data and exports.</p>
         <form id="adForm" autocomplete="off">
           <label for="adPin">Admin PIN</label>
           <input id="adPin" type="password" autocomplete="off" required>
           <div style="margin-top:18px"><button id="adBtn" type="submit">Unlock</button></div>
           <div id="adMsg" class="msg" role="alert"></div>
+          <div style="margin-top:6px"><button id="adBack" type="button" class="linkbtn">Back to agent sign in</button></div>
         </form>
       </div>
       <div id="adBody" class="hide">
@@ -239,7 +248,6 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
           <button id="adRefresh" type="button" class="ghost">Refresh</button>
           <button id="adCsv" type="button">Export CSV</button>
           <button id="adPdf" type="button">Export PDF</button>
-          <button id="adLockBtn" type="button" class="ghost">Lock</button>
           <span id="adStamp" style="color:var(--mute);font-size:.8rem"></span>
         </div>
         <div id="adMsg2" class="msg" role="status"></div>
@@ -276,7 +284,7 @@ dialog::backdrop{background:rgba(0,0,0,.62)}
   <div id="rstMsg" class="msg" role="alert"></div>
 </dialog>
 <footer>SD 475 CLASS PROJECT</footer>
- 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js" defer></script>
 <script src="config.js"></script>
@@ -313,7 +321,7 @@ wheel("wP", ["FOE", "FCM"], "p");
 wheel("wA", Array.from({ length: 100 }, (_, i) => String(i).padStart(2, "0")), "a");
 wheel("wB", Array.from({ length: 10 }, (_, i) => String(i)), "b");
 let mode = "in", token = sessionStorage.getItem("sd4_token"), me = sessionStorage.getItem("sd4_idx");
- 
+
 async function api(action, payload = {}) {
   if (API_URL.startsWith("PASTE")) throw new Error("API_URL is not set in index.html yet");
   if (!/^https:\/\/script\.google\.com\/.+\/exec$/.test(API_URL)) throw new Error("API_URL must be the Web App link ending in /exec");
@@ -331,17 +339,17 @@ async function api(action, payload = {}) {
   return j;
 }
 const say = (el, t, ok) => { el.textContent = t; el.className = "msg" + (ok ? " ok" : ""); };
- 
+
 // Splash then route
 PROGRAMMES.forEach(p => $("prog").add(new Option(p, p)));
 setTimeout(() => {
   $("splash").style.opacity = 0;
   setTimeout(() => $("splash").classList.add("hide"), 500);
-  token ? enterApp() : $("auth").classList.remove("hide");
+  adminToken ? openAdmin() : token ? enterApp() : $("auth").classList.remove("hide");
 }, 2300);
- 
+
 // Auth
-let adminPin = null, AD = null;
+let adminToken = sessionStorage.getItem("sd4_admin"), AD = null;
 function setMode(m) {
   mode = m;
   $("tabIn").className = m === "in" ? "" : "ghost"; $("tabUp").className = m === "up" ? "" : "ghost";
@@ -358,7 +366,7 @@ $("altLink").onclick = () => setMode(mode === "fp" ? "in" : "fp");
 $("authForm").onsubmit = async e => {
   e.preventDefault();
   const idx = getIdx();
-  if (!IDX_RE.test(idx)) return say($("authMsg"), "Choose every part of your index number (FOE or FCM, then 41.023.0__.2_)");
+  if (!IDX_RE.test(idx)) return say($("authMsg"), "Choose every part of your reference number (FOE or FCM, then 41.023.0__.2_)");
   if (mode !== "in" && $("pw").value !== $("pw2").value) return say($("authMsg"), "Passwords do not match");
   $("authBtn").disabled = true; say($("authMsg"), "Please wait…", true);
   try {
@@ -377,18 +385,18 @@ $("authForm").onsubmit = async e => {
 };
 function signOut() { sessionStorage.clear(); token = me = null; lockAdmin(); $("app").classList.add("hide"); $("auth").classList.remove("hide"); $("pw").value = ""; }
 $("out").onclick = signOut;
- 
+
 // App
 function enterApp() { $("app").classList.remove("hide"); $("who").textContent = me; show("survey"); loadCount(); }
-const VIEWS = ["survey", "dash", "acct", "admin"];
+const VIEWS = ["survey", "dash", "acct"];
 function show(v) {
   VIEWS.forEach(x => $(x).classList.toggle("hide", x !== v));
   if (v === "dash") loadDash();
   if (v === "acct") { $("acctWho").textContent = me; say($("cpMsg"), ""); }
 }
 $("navSurvey").onclick = () => show("survey"); $("navDash").onclick = () => show("dash");
-$("navAcct").onclick = () => show("acct"); $("navAdmin").onclick = () => show("admin");
- 
+$("navAcct").onclick = () => show("acct");
+
 // Change password (any signed-in user)
 $("acctForm").onsubmit = async e => {
   e.preventDefault();
@@ -401,9 +409,9 @@ $("acctForm").onsubmit = async e => {
   } catch (err) { say($("cpMsg"), err.message); if (/sign in/i.test(err.message)) signOut(); }
   $("cpBtn").disabled = false;
 };
- 
+
 // Admin
-const COLS = ["Timestamp", "Agent Index Number", "Gender", "Level", "Programme", "Daily Spend on Campus (GHS)", "Teaching Hours per Day", "Phone Hours per Week", "Source"];
+const COLS = ["Timestamp", "Agent Reference Number", "Gender", "Level", "Programme", "Daily Spend on Campus (GHS)", "Teaching Hours per Day", "Phone Hours per Week", "Source"];
 const rowArr = r => [fmt(r.time), r.agent, r.gender, r.level, r.programme, r.spend, r.teaching, r.phone, r.source || "Agent form"];
 const p2 = n => String(n).padStart(2, "0");
 const fmt = t => { const d = new Date(t); return isNaN(d) ? String(t) : `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`; };
@@ -417,13 +425,24 @@ function grid(el, head, rows, empty) {
   rows.forEach(r => { const tr = document.createElement("tr"); r.forEach(v => { const td = document.createElement("td"); td.textContent = v; tr.appendChild(td); }); tb.appendChild(tr); });
   t.append(th, tb); el.appendChild(t);
 }
-function lockAdmin() { adminPin = null; AD = null; $("adBody").classList.add("hide"); $("adLock").classList.remove("hide"); $("adCodeOut").innerHTML = ""; }
+function lockAdmin() { adminToken = null; AD = null; sessionStorage.removeItem("sd4_admin"); $("adBody").classList.add("hide"); $("adLock").classList.remove("hide"); $("adCodeOut").innerHTML = ""; }
+function openAdmin() {
+  $("auth").classList.add("hide"); $("app").classList.add("hide"); $("adminApp").classList.remove("hide");
+  $("adLock").classList.toggle("hide", !!adminToken); $("adBody").classList.toggle("hide", !adminToken);
+  if (adminToken) loadAdmin().catch(adminErr);
+}
+function closeAdmin() { $("adminApp").classList.add("hide"); $("auth").classList.remove("hide"); }
+function adminErr(err) {
+  if (/Admin session/i.test(err.message)) { lockAdmin(); say($("adMsg"), err.message); } else say($("adMsg2"), err.message);
+}
+$("adminLink").onclick = openAdmin; $("adBack").onclick = closeAdmin;
+$("adOut").onclick = async () => { const t = adminToken; lockAdmin(); closeAdmin(); say($("adMsg"), ""); try { await api("adminLogout", { adminToken: t }); } catch (e) {} };
 async function loadAdmin() {
-  const j = await api("adminData", { pin: adminPin });
+  const j = await api("adminData", { adminToken });
   AD = j;
   $("adKpis").innerHTML = [["Registered users", j.users], ["Active agents", j.activeAgents], ["Total responses", j.total], ["Via shared links", j.viaLinkTotal], ["Responses today", j.today]]
     .map(([l, v]) => "<div class='kpi'><b>" + v + "</b><span>" + l + "</span></div>").join("");
-  grid($("adAgents"), ["Index number", "Registered", "Surveys", "Via link", "Last submission"], j.agents.map(a => [a.index, fmt(a.created), a.surveys, a.viaLink, a.last ? fmt(a.last) : "—"]), "No users yet.");
+  grid($("adAgents"), ["Reference number", "Registered", "Surveys", "Via link", "Last submission"], j.agents.map(a => [a.index, fmt(a.created), a.surveys, a.viaLink, a.last ? fmt(a.last) : "—"]), "No users yet.");
   const R = j.rows.slice(0, 200);
   $("adNote").textContent = j.total ? `Showing the latest ${R.length} of ${j.total}. Exports include all ${j.total}.` : "";
   grid($("adRows"), ["Time", "Agent", "Gender", "Level", "Programme", "GH₵/day", "Teach hrs", "Phone hrs/wk", "Source"], R.map(rowArr), "No survey data yet.");
@@ -433,14 +452,15 @@ async function loadAdmin() {
 $("adForm").onsubmit = async e => {
   e.preventDefault(); $("adBtn").disabled = true; say($("adMsg"), "Checking…", true);
   try {
-    adminPin = $("adPin").value; await loadAdmin();
+    const j = await api("adminLogin", { pin: $("adPin").value });
+    adminToken = j.adminToken; sessionStorage.setItem("sd4_admin", adminToken);
+    await loadAdmin();
     $("adPin").value = ""; $("adLock").classList.add("hide"); $("adBody").classList.remove("hide"); say($("adMsg"), ""); say($("adMsg2"), "");
-  } catch (err) { adminPin = null; say($("adMsg"), err.message); if (/sign in/i.test(err.message)) signOut(); }
+  } catch (err) { say($("adMsg"), err.message); }
   $("adBtn").disabled = false;
 };
-$("adRefresh").onclick = async () => { try { await loadAdmin(); say($("adMsg2"), ""); } catch (err) { say($("adMsg2"), err.message); } };
-$("adLockBtn").onclick = lockAdmin;
- 
+$("adRefresh").onclick = async () => { try { await loadAdmin(); say($("adMsg2"), ""); } catch (err) { adminErr(err); } };
+
 function download(name, blob) {
   const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
@@ -461,7 +481,7 @@ $("adPdf").onclick = () => {
   doc.setFontSize(16); doc.setTextColor(...green); doc.text("UMaT Student Life Survey - SD4", 40, 40);
   doc.setFontSize(10); doc.setTextColor(80);
   doc.text(`Generated ${new Date().toLocaleString()}  |  Registered users: ${AD.users}  |  Active agents: ${AD.activeAgents}  |  Responses: ${AD.total}`, 40, 58);
-  doc.autoTable({ startY: 72, head: [["Agent index number", "Registered", "Surveys", "Via link", "Last submission"]], body: AD.agents.map(a => [a.index, fmt(a.created), a.surveys, a.viaLink, a.last ? fmt(a.last) : "-"]),
+  doc.autoTable({ startY: 72, head: [["Agent reference number", "Registered", "Surveys", "Via link", "Last submission"]], body: AD.agents.map(a => [a.index, fmt(a.created), a.surveys, a.viaLink, a.last ? fmt(a.last) : "-"]),
     styles: { fontSize: 8 }, headStyles: { fillColor: green }, margin: { left: 40, right: 40 } });
   doc.autoTable({ startY: doc.lastAutoTable.finalY + 24, head: [COLS], body: [...AD.rows].reverse().map(rowArr),
     styles: { fontSize: 7.5 }, headStyles: { fillColor: green }, margin: { left: 40, right: 40 } });
@@ -473,14 +493,14 @@ $("adCode").onclick = async () => {
   const idx = $("adUser").value; if (!idx) return;
   $("adCode").disabled = true;
   try {
-    const j = await api("adminCode", { pin: adminPin, index: idx });
+    const j = await api("adminCode", { adminToken, index: idx });
     const box = document.createElement("div"); box.className = "codebox"; box.textContent = j.code;
     const p = document.createElement("p"); p.style.cssText = "color:var(--mute);font-size:.85rem;margin:8px 0 0"; p.textContent = "One-time code for " + j.index + ". Valid for " + j.minutes + " minutes.";
     $("adCodeOut").innerHTML = ""; $("adCodeOut").append(box, p);
-  } catch (err) { say($("adMsg2"), err.message); }
+  } catch (err) { adminErr(err); }
   $("adCode").disabled = false;
 };
- 
+
 let myRef = null, scope = "mine";
 const linkFor = r => new URL("survey.html?r=" + encodeURIComponent(r), location.href).href;
 async function loadCount() {
@@ -501,7 +521,7 @@ $("sForm").onsubmit = async e => {
   } catch (err) { say($("sMsg"), err.message); if (/sign in/i.test(err.message)) signOut(); }
   $("sBtn").disabled = false;
 };
- 
+
 $("shareLink").onfocus = e => e.target.select();
 $("waBtn").onclick = () => {
   if (!myRef) return;
@@ -513,7 +533,7 @@ $("copyBtn").onclick = async () => {
   catch (e) { $("shareLink").select(); say($("shareMsg"), "Select the link and copy it manually."); }
 };
 $("sClear").onclick = () => { $("sForm").reset(); say($("sMsg"), ""); };
- 
+
 const dlg = $("rst"), rp = $("rstPin"), rc = $("rstConfirm"), rb = $("rstGo");
 const rchk = () => { rb.disabled = !(rp.value && rc.value.trim().toUpperCase() === "RESET"); };
 $("rstOpen").onclick = () => { rp.value = rc.value = ""; rb.disabled = true; say($("rstMsg"), ""); dlg.showModal(); rp.focus(); };
@@ -522,13 +542,13 @@ rp.oninput = rc.oninput = rchk;
 rb.onclick = async () => {
   rb.disabled = true; say($("rstMsg"), "Resetting…", true);
   try {
-    await api("reset", { pin: rp.value });
+    await api("reset", { adminToken, pin: rp.value });
     dlg.close(); loadCount();
     say($("rstDone"), "All recorded data was reset to zero. A backup tab was saved in the Google Sheet.", true);
-    if (adminPin) loadAdmin().catch(() => {});
+    if (adminToken) loadAdmin().catch(adminErr);
   } catch (err) { say($("rstMsg"), err.message); rchk(); }
 };
- 
+
 function bars(el, obj) {
   const e = Object.entries(obj).sort((a, b) => b[1] - a[1]), max = Math.max(1, ...e.map(x => x[1]));
   el.innerHTML = e.length ? "" : "<span style='color:var(--mute)'>No data yet</span>";
@@ -568,5 +588,3 @@ async function loadDash() {
 </script>
 </body>
 </html>
- 
-Claude finished the response
