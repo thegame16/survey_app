@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07140d">
+<title>UMaT Student Life Survey</title>
+<link rel="icon" href="assets/umat-logo.jpg">
+<style>
+:root{--bg:#07140d;--card:#0e2418;--ink:#eef6f0;--mute:#9bb5a5;--gold:#f2c14e;--green:#15803d;--ok:#4cc38a;--line:#1f3d2c;--bad:#ff7b7b;color-scheme:dark}
+@media(prefers-color-scheme:light){:root{--bg:#f1f6f2;--card:#fff;--ink:#0f2a1b;--mute:#4a6355;--gold:#946800;--green:#0e6b34;--ok:#0e6b34;--line:#cfe0d5;--bad:#c62828;color-scheme:light}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--green) 22%,var(--bg)),var(--bg) 60%) fixed;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:4px;z-index:10;background:linear-gradient(90deg,var(--green),var(--gold) 55%,#c8102e)}
+main{flex:1;width:100%;max-width:640px;margin:0 auto;padding:28px 14px 28px}
+footer{text-align:center;padding:14px 14px calc(14px + env(safe-area-inset-bottom));font-size:.78rem;letter-spacing:.14em;color:var(--mute);border-top:1px solid var(--line)}
+.head{text-align:center;margin-bottom:18px}
+.crest{display:block;margin:0 auto 12px;height:84px;width:auto;background:#fff;border-radius:12px;padding:5px;box-shadow:0 8px 26px rgba(0,0,0,.28),0 0 0 1px color-mix(in srgb,var(--gold) 45%,transparent)}
+h1{margin:0 0 4px;font-size:1.5rem}.sub{margin:0;color:var(--mute);font-size:.92rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+label{display:block;font-size:.85rem;color:var(--mute);margin:14px 0 4px}
+input,select{width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1rem}
+select{appearance:none;-webkit-appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239fb0c3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px 18px;min-height:44px;font-size:1rem;font-weight:600;background:var(--green);color:#fff;touch-action:manipulation}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}button:disabled{opacity:.6;cursor:wait}
+.msg{margin-top:12px;min-height:1.2em;font-size:.9rem;color:var(--bad)}.msg.ok{color:var(--ok)}
+.fgrid{display:grid;grid-template-columns:1fr;gap:0 16px}
+@media(min-width:560px){.fgrid{grid-template-columns:1fr 1fr}.full{grid-column:1/-1}}
+.hide{display:none!important}.ctr{text-align:center}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.tick{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;font-size:2rem;line-height:56px;margin:0 auto 12px}
+</style>
+</head>
+<body>
+<main>
+  <div class="head">
+    <img class="crest" src="assets/umat-logo.jpg" width="66" height="84" alt="UMaT crest">
+    <h1>UMaT Student Life Survey</h1>
+    <p class="sub">A short anonymous survey for UMaT students. It takes about one minute.</p>
+  </div>
+ 
+  <div id="state" class="card ctr" style="color:var(--mute)">Loading…</div>
+ 
+  <div id="formCard" class="card hide">
+    <form id="f" class="fgrid" autocomplete="off">
+      <div><label for="gender">Gender</label>
+        <select id="gender" required><option value="">Select…</option><option>Male</option><option>Female</option></select></div>
+      <div><label for="level">Level</label>
+        <select id="level" required><option value="">Select…</option><option>100</option><option>200</option><option>300</option><option>400</option><option>Other</option></select></div>
+      <div class="full"><label for="prog">Programme of study</label>
+        <select id="prog" required><option value="">Select…</option></select></div>
+      <div class="full"><label for="spend">Amount you spend on campus daily (GH₵)</label>
+        <input id="spend" type="number" min="0" max="5000" step="0.5" inputmode="decimal" required></div>
+      <div><label for="teach">Teaching hours in a day</label>
+        <input id="teach" type="number" min="0" max="24" step="0.5" inputmode="decimal" required></div>
+      <div><label for="phone">Hours on your phone per week</label>
+        <input id="phone" type="number" min="0" max="168" step="0.5" inputmode="decimal" required></div>
+      <input id="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="full" style="margin-top:18px">
+        <button id="btn" type="submit" style="width:100%">Submit survey</button>
+        <div id="msg" class="msg" role="alert"></div>
+      </div>
+    </form>
+  </div>
+ 
+  <div id="thanks" class="card ctr hide">
+    <div class="tick" aria-hidden="true">✓</div>
+    <h2 style="margin:0 0 6px">Thank you!</h2>
+    <p style="color:var(--mute);margin:0 0 16px">Your response has been recorded anonymously.</p>
+    <button id="again" type="button" class="ghost">Submit for another person on this device</button>
+  </div>
+</main>
+<footer>SD 475 CLASS PROJECT · BUILT BY SD4</footer>
+ 
+<script src="config.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const ref = new URLSearchParams(location.search).get("r") || "", KEY = "sd4_done_" + ref;
+const say = (t, ok) => { $("msg").textContent = t; $("msg").className = "msg" + (ok ? " ok" : ""); };
+const view = v => ["state", "formCard", "thanks"].forEach(x => $(x).classList.toggle("hide", x !== v));
+const done = () => { try { return !!localStorage.getItem(KEY); } catch (e) { return false; } };
+ 
+async function api(action, payload = {}) {
+  let r;
+  try { r = await fetch(API_URL, { method: "POST", body: JSON.stringify({ action, ...payload }) }); } // text/plain avoids CORS preflight
+  catch (e) { throw new Error("Cannot reach the survey server. Check your internet connection and try again."); }
+  let j;
+  try { j = await r.json(); } catch (e) { throw new Error("The survey server sent an unexpected reply. Please try again later."); }
+  if (!j.ok) throw new Error(j.error || "Request failed");
+  return j;
+}
+ 
+PROGRAMMES.forEach(p => $("prog").add(new Option(p, p)));
+(async () => {
+  if (!ref) { $("state").textContent = "This survey link is incomplete. Please ask the person who sent it to share it again."; return; }
+  try { await api("linkInfo", { ref }); view(done() ? "thanks" : "formCard"); }
+  catch (e) { $("state").textContent = e.message; }
+})();
+ 
+$("f").onsubmit = async e => {
+  e.preventDefault(); $("btn").disabled = true; say("Submitting…", true);
+  try {
+    await api("publicSubmit", { ref, hp: $("hp").value, data: { gender: $("gender").value, level: $("level").value, programme: $("prog").value,
+      spend: $("spend").value, teaching: $("teach").value, phone: $("phone").value } });
+    try { localStorage.setItem(KEY, "1"); } catch (e2) {}
+    $("f").reset(); say(""); view("thanks");
+  } catch (err) { say(err.message); }
+  $("btn").disabled = false;
+};
+$("again").onclick = () => { try { localStorage.removeItem(KEY); } catch (e) {} say(""); view("formCard"); window.scrollTo(0, 0); };
+</script>
+</body>
+</html>
+ 
+Claude finished the response
