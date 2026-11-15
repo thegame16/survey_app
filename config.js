@@ -3,7 +3,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbwKuYC1HG-5IDq4d4n9qFJdBCdm5_OVj0auGNPnvpkpzNaC431x86sHnAonAgLon1Seug/exec";
 
 // Programmes sourced from UMaT admissions pages and TopUniversities; verify against umat.edu.gh before final use.
-const programmes = [
+const PROGRAMMES = [
   // Faculty of Mining and Minerals Technology
   "BSc Mining Engineering",
   "BSc Minerals Engineering",
